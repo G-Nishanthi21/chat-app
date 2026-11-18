@@ -156,7 +156,6 @@ io.on("connection", (socket) => {
                 }
 
                 socket.emit("messageSent", newMessage);
-
             } else {
 
                 socket.emit("messageError", {
