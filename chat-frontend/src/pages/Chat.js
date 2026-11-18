@@ -35,8 +35,8 @@ const Chat = () => {
 
     const navigate = useNavigate();
 
-    const user = JSON.parse( sessionStorage.getItem("user"));
-    const token =  sessionStorage.getItem("token");
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const token = sessionStorage.getItem("token");
 
     let userId = "";
 
@@ -427,18 +427,18 @@ const Chat = () => {
 
     }, [receiverId, token]);
     useEffect(() => {
-    window.history.pushState(null, "", window.location.pathname);
-
-    const handleBack = () => {
         window.history.pushState(null, "", window.location.pathname);
-    };
 
-    window.addEventListener("popstate", handleBack);
+        const handleBack = () => {
+            window.history.pushState(null, "", window.location.pathname);
+        };
 
-    return () => {
-        window.removeEventListener("popstate", handleBack);
-    };
-}, []);
+        window.addEventListener("popstate", handleBack);
+
+        return () => {
+            window.removeEventListener("popstate", handleBack);
+        };
+    }, []);
 
     useEffect(() => {
 
@@ -473,7 +473,7 @@ const Chat = () => {
         setShowEmoji(false);
 
         sessionStorage.setItem("receiverId", id);
-         sessionStorage.setItem("receiverName", name);
+        sessionStorage.setItem("receiverName", name);
 
         try {
 
@@ -577,10 +577,10 @@ const Chat = () => {
 
         socket.disconnect();
 
-         sessionStorage.removeItem("user");
-         sessionStorage.removeItem("token");
-         sessionStorage.removeItem("receiverId");
-         sessionStorage.removeItem("receiverName");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("receiverId");
+        sessionStorage.removeItem("receiverName");
 
         navigate("/login");
 
@@ -596,7 +596,7 @@ const Chat = () => {
 
 
 
-            
+
             </div>
         );
 
@@ -837,7 +837,7 @@ const Chat = () => {
                             >
 
                                 <div className="user-avatar">
-                                    {item.username.charAt(0).toUpperCase()}
+                                    {item.username ? item.username.charAt(0).toUpperCase() : ""}
                                 </div>
 
                                 <div className="user-info">
