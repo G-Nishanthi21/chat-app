@@ -1,0 +1,408 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+.chat-page {
+    width: 90%;
+    max-width: 1100px;
+    height: 80vh;
+    min-height: 500px;
+    margin: 10vh auto;
+    display: flex;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chat-sidebar {
+    width: 280px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-header {
+    height: 65px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar-header h2 {
+    font-size: 20px;
+}
+
+.sidebar-header button,
+.message-input button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-header button:hover,
+.message-input button:hover {
+    background: #333;
+}
+
+.user-heading {
+    padding: 15px;
+}
+
+.user-heading h3 {
+    font-size: 16px;
+}
+
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.user-item {
+    padding: 13px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.user-item:hover,
+.user-item.active {
+    background: #f5f5f5;
+}
+
+.user-avatar {
+    display: none;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.preview-time {
+    margin-left: auto;
+    color: #999;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.last-message-preview {
+    margin-top: 5px;
+    color: #999;
+    font-size: 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.user-info h4 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.user-info p,
+.chat-header p {
+    font-size: 12px;
+}
+
+.unread-count {
+    min-width: 20px;
+    height: 20px;
+    padding: 3px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eee;
+    color: black;
+    font-size: 11px;
+}
+
+.online-status,
+.typing-status {
+    color: green !important;
+}
+
+.offline-status {
+    color: #888 !important;
+}
+
+.status-dot {
+    display: none;
+}
+
+.profile-section {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.profile-section h4,
+.profile-section p {
+    color: #888;
+}
+
+.profile-section h4 {
+    font-size: 14px;
+}
+
+.profile-section p {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.chat-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.empty-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.empty-chat h2 {
+    font-size: 20px;
+}
+
+.empty-chat p {
+    font-size: 14px;
+}
+
+.chat-header {
+    height: 65px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-header h3 {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.message-area {
+    flex: 1;
+    min-height: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.message-row {
+    width: 100%;
+    display: flex;
+}
+
+.sent-message {
+    justify-content: flex-end;
+}
+
+.received-message {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: 65%;
+    padding: 10px 13px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.message-bubble p {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.sent-message .message-bubble {
+    background: #f0f0f0;
+}
+
+.received-message .message-bubble {
+    background: white;
+}
+
+.message-details {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.message-time {
+    color: #777;
+    font-size: 10px;
+}
+
+.grey-tick {
+    color: black;
+    font-size: 12px;
+}
+
+.blue-tick {
+    color: blue;
+    font-size: 12px;
+}
+
+.chat-error {
+    color: red;
+    text-align: center;
+    font-size: 13px;
+}
+
+.message-input {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.message-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+.message-input input::placeholder {
+    color: black;
+}
+
+.emoji-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.emoji-button {
+    padding: 5px;
+    border: none;
+    background: transparent;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.emoji-picker {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    z-index: 100;
+}
+
+.user-list::-webkit-scrollbar,
+.message-area::-webkit-scrollbar {
+    width: 5px;
+}
+
+.user-list::-webkit-scrollbar-thumb,
+.message-area::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+@media (max-width: 650px) {
+    .chat-page {
+        width: 96%;
+        height: 85vh;
+        min-height: 450px;
+        margin: 7vh auto;
+    }
+
+    .chat-sidebar {
+        width: 120px;
+        min-width: 120px;
+    }
+
+    .sidebar-header {
+        padding: 8px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 15px;
+    }
+
+    .sidebar-header button {
+        padding: 5px;
+        font-size: 11px;
+    }
+
+    .user-heading {
+        padding: 10px;
+    }
+
+    .user-heading h3 {
+        font-size: 13px;
+    }
+
+    .user-item {
+        padding: 10px;
+    }
+
+    .user-info h4 {
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-section {
+        padding: 10px;
+    }
+
+    .message-area {
+        padding: 10px;
+    }
+
+    .message-bubble {
+        max-width: 85%;
+    }
+
+    .message-input {
+        padding: 10px;
+    }
+
+    .message-input button {
+        padding: 10px;
+    }
+}
