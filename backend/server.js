@@ -16,10 +16,16 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: [
+        "http://localhost:3000",
+        "https://chat-app-1-9bsk.onrender.com"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
-connectDB();
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("Chat Application Backend is Running");
@@ -32,15 +38,17 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:3000",
-                "https://chat-app-1-9bsk.onrender.com"],
-
-        methods: ["GET", "POST"]
+        origin: [
+            "http://localhost:3000",
+            "https://chat-app-1-9bsk.onrender.com"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
 io.use((socket, next) => {
-    
+
     const token = socket.handshake.auth.token;
 
     if (token) {
@@ -158,6 +166,7 @@ io.on("connection", (socket) => {
                 }
 
                 socket.emit("messageSent", newMessage);
+
             } else {
 
                 socket.emit("messageError", {
@@ -226,34 +235,55 @@ io.on("connection", (socket) => {
 
     });
 
-  socket.on("disconnect", async () => {
-    try {
-        const activeSockets = await io.in(socket.userId).fetchSockets();
+    socket.on("disconnect", async () => {
 
-        if (activeSockets.length === 0) {
-            await User.findByIdAndUpdate(socket.userId, {
-                isOnline: false
-            });
+        try {
 
-            io.emit("userStatus", {
-                userId: socket.userId,
-                isOnline: false
-            });
+            const activeSockets = await io.in(socket.userId).fetchSockets();
+
+            if (activeSockets.length === 0) {
+
+                await User.findByIdAndUpdate(socket.userId, {
+                    isOnline: false
+                });
+
+                io.emit("userStatus", {
+                    userId: socket.userId,
+                    isOnline: false
+                });
+
+            }
+
+            console.log("User disconnected:", socket.id);
+
+        } catch (error) {
+
+            console.log("Offline status update failed:", error);
+
         }
 
-        console.log("User disconnected:", socket.id);
-
-    } catch (error) {
-        console.log("Offline status update failed:", error);
-    }
-});
+    });
 
 });
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
+const startServer = async () => {
 
-    console.log("Server is running on port " + PORT);
+    try {
 
-});
+        await connectDB();
+
+        server.listen(PORT, () => {
+            console.log("Server is running on port " + PORT);
+        });
+
+    } catch (error) {
+
+        console.log("Server startup failed:", error);
+
+    }
+
+};
+
+startServer();
