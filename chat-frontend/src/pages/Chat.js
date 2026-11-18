@@ -306,7 +306,7 @@ const Chat = () => {
 
         };
 
-    }, [userId, token, navigate]);
+    }, [user, userId, token, navigate]);
 
     useEffect(() => {
 
@@ -378,7 +378,7 @@ const Chat = () => {
 
         }
 
-    }, [token]);
+    }, [user, receiverId, token]);
 
     useEffect(() => {
 
@@ -425,7 +425,7 @@ const Chat = () => {
 
         }
 
-    }, []);
+    }, [receiverId, token]);
     useEffect(() => {
     window.history.pushState(null, "", window.location.pathname);
 
