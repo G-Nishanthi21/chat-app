@@ -41,7 +41,7 @@ function Register() {
 
         if (name !== "" && email !== "" && password !== "") {
 
-            fetch("http://localhost:5000/api/user/register", {
+            fetch("https://chat-app-vvw1.onrender.com/api/user/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

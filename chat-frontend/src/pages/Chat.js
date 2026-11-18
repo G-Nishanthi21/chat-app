@@ -312,7 +312,7 @@ const Chat = () => {
 
         if (user !== null && token !== null) {
 
-            fetch("http://localhost:5000/api/user/all", {
+            fetch("https://chat-app-vvw1.onrender.com/api/user/all", {
                 headers: {
                     Authorization: "Bearer " + token
                 }
@@ -337,7 +337,7 @@ const Chat = () => {
 
                     data.users.forEach((item) => {
 
-                        fetch("http://localhost:5000/api/message/" + item._id, {
+                        fetch("https://chat-app-vvw1.onrender.com/api/message/" + item._id, {
                             headers: {
                                 Authorization: "Bearer " + token
                             }
@@ -384,7 +384,7 @@ const Chat = () => {
 
         if (receiverId !== "" && token !== null) {
 
-            fetch("http://localhost:5000/api/message/" + receiverId, {
+            fetch("https://chat-app-vvw1.onrender.com/api/message/" + receiverId, {
                 headers: {
                     Authorization: "Bearer " + token
                 }
@@ -478,7 +478,7 @@ const Chat = () => {
         try {
 
             const response = await fetch(
-                "http://localhost:5000/api/message/" + id,
+                "https://chat-app-vvw1.onrender.com/api/message/" + id,
                 {
                     headers: {
                         Authorization: "Bearer " + token
@@ -593,6 +593,9 @@ const Chat = () => {
         chatContent = (
             <div className="empty-chat">
                 <h2>Welcome to ChatApp</h2>
+
+
+
             
             </div>
         );

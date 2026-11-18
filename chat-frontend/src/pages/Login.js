@@ -35,7 +35,7 @@ const Login = () => {
 
         if (email !== "" && password !== "") {
 
-            fetch("http://localhost:5000/api/user/login", {
+            fetch("https://chat-app-vvw1.onrender.com/api/user/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -63,10 +63,7 @@ const Login = () => {
 
                     } else {
                         setError(data.message);
-                    }
-
-
-                    
+                    } 
                 })
                 .catch((error) => {
                     console.log(error);
