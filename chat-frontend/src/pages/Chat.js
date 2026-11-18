@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import socket from "../socket";
@@ -85,7 +86,7 @@ const Chat = () => {
 
     useEffect(() => {
 
-        if (user === null || token === null) {
+        if (userId === "" || token === null) {
             navigate("/login");
             return;
         }
@@ -286,7 +287,9 @@ const Chat = () => {
         socket.on("userStatus", userStatus);
         socket.on("userTyping", userTyping);
 
-        socket.connect();
+        if (!socket.connected) {
+            socket.connect();
+        }
 
         return () => {
 
@@ -306,11 +309,11 @@ const Chat = () => {
 
         };
 
-    }, [user, userId, token, navigate]);
+    }, [userId, token, navigate]);
 
     useEffect(() => {
 
-        if (user !== null && token !== null) {
+        if (userId !== "" && token !== null) {
 
             fetch("https://chat-app-vvw1.onrender.com/api/user/all", {
                 headers: {
@@ -378,7 +381,7 @@ const Chat = () => {
 
         }
 
-    }, [user, receiverId, token]);
+    }, [userId, receiverId, token]);
 
     useEffect(() => {
 
@@ -426,6 +429,7 @@ const Chat = () => {
         }
 
     }, [receiverId, token]);
+
     useEffect(() => {
         window.history.pushState(null, "", window.location.pathname);
 
@@ -593,10 +597,6 @@ const Chat = () => {
         chatContent = (
             <div className="empty-chat">
                 <h2>Welcome to ChatApp</h2>
-
-
-
-
             </div>
         );
 
